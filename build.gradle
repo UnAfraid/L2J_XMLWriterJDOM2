@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = '1.8'
+
+eclipse {
+	project {
+		natures('org.springsource.ide.eclipse.gradle.core.nature')
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.5'
+}
+
+dependencies {
+	compile project(':L2J_XMLWriterAbstraction')
+	compile(group: 'org.jdom', name: 'jdom2', version: '2.0.6')
+}
+
+jar {
+	manifest {
+		attributes('Built-By': System.getProperty('user.name'),
+				'Implementation-URL': 'http://www.l2junity.org/',
+			)
+	}
+}
